@@ -14,8 +14,10 @@ function SignInScreen({navigation}: SignInScreenProps): JSX.Element {
   const viewModel = new AuthViewModel();
 
   const handleSignIn = (): void => {
-    viewModel.signIn(email, password);
-    navigation.navigate('Home');
+    viewModel.signIn(email, password, () => {
+      // Navigate to next screen upon successful sign-up
+      navigation.navigate('Home');
+    });
   };
 
   const handleSignUp = (): void => {

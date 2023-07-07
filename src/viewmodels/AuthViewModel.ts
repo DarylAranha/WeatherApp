@@ -1,8 +1,9 @@
+import {Alert} from 'react-native';
 import User from '../models/User';
 import auth from '@react-native-firebase/auth';
 
 class AuthViewModel {
-  signIn(email: string, password: string): void {
+  signIn(email: string, password: string, onSuccess: () => void): void {
     const user = new User(email, password);
 
     if (user.validate()) {
@@ -10,19 +11,22 @@ class AuthViewModel {
         .signInWithEmailAndPassword(user.email, user.password)
         .then(() => {
           console.log('User signed in successfully!');
-          // Do something after successful sign-in
+          onSuccess();
         })
         .catch((error: any) => {
-          console.error('Sign-in error:', error);
           // Handle sign-in error
+          Alert.alert('Sign-in Error', error.message);
         });
     } else {
-      console.error('Invalid user credentials');
       // Handle invalid credentials error
+      Alert.alert(
+        'Invalid Credentials',
+        'Please enter a valid email and password.',
+      );
     }
   }
 
-  signUp(email: string, password: string): void {
+  signUp(email: string, password: string, onSuccess: () => void): void {
     const user = new User(email, password);
 
     if (user.validate()) {
@@ -30,15 +34,18 @@ class AuthViewModel {
         .createUserWithEmailAndPassword(user.email, user.password)
         .then(() => {
           console.log('User signed up successfully!');
-          // Do something after successful sign-up
+          onSuccess();
         })
         .catch((error: any) => {
-          console.error('Sign-up error:', error);
           // Handle sign-up error
+          Alert.alert('Sign-up Error', error.message);
         });
     } else {
-      console.error('Invalid user credentials');
       // Handle invalid credentials error
+      Alert.alert(
+        'Invalid Credentials',
+        'Please enter a valid email and password.',
+      );
     }
   }
 

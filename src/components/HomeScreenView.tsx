@@ -21,25 +21,31 @@ const HomeScreenView: React.FC<HomeScreenViewProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Text>Enter Latitude:</Text>
+      <Text style={styles.label}>Enter Latitude:</Text>
       <TextInput
         style={styles.input}
         value={latitude}
         onChangeText={onLatitudeChange}
+        placeholder="Latitude"
       />
-      <Text>Enter Longitude:</Text>
+      <Text style={styles.label}>Enter Longitude:</Text>
       <TextInput
         style={styles.input}
         value={longitude}
         onChangeText={onLongitudeChange}
+        placeholder="Longitude"
       />
       <Button title="Get Weather" onPress={onGetWeather} />
 
       {weatherData ? (
-        <View>
-          <Text>City: {weatherData.name}</Text>
-          <Text>Temperature: {weatherData.temperature}°C</Text>
-          <Text>Description: {weatherData.description}</Text>
+        <View style={styles.weatherContainer}>
+          <Text style={styles.weatherText}>City: {weatherData.name}</Text>
+          <Text style={styles.weatherText}>
+            Temperature: {weatherData.temperature}°C
+          </Text>
+          <Text style={styles.weatherText}>
+            Description: {weatherData.description}
+          </Text>
         </View>
       ) : (
         <Text>No weather data available.</Text>
@@ -55,6 +61,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  label: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -62,6 +72,16 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
     width: '100%',
+  },
+  weatherContainer: {
+    marginTop: 16,
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+    borderRadius: 8,
+  },
+  weatherText: {
+    fontSize: 16,
+    marginBottom: 8,
   },
 });
 
